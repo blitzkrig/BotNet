@@ -24,7 +24,7 @@ class admbot: #admin bot
         self.name = botnetdata3.bots_info[self.num]['name'] #берем данные из файла
         self.bot_id = botnetdata3.bots_info[self.num]['bot_id']
         self.token = botnetdata3.bots_info[self.num]['token']
-        session = vk_api.VkApi(token=self.token, captcha_handler=anticaptcha) #авторизация
+        session = vk_api.VkApi(token=self.token, captcha_handler=captcha_handler) #авторизация
         longpoll = VkLongPoll(session)
         vk = session.get_api()
         print(Fore.CYAN + 'admbot connected!')
