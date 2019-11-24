@@ -14,13 +14,17 @@ print('\nstart botnet\n')
 time.sleep(1)
 botx = 1
 class admbot: #admin bot
+    def captcha_handler(captcha):
+        key = ImageToTextTask.ImageToTextTask(anticaptcha_key='ключ антикапчи', save_format='const') \
+            .captcha_handler(captcha_link=captcha.get_url())
+        return captcha.try_again(key['solution']['text'])
     def __init__(self):
         self.num = botx
         time.sleep(botx)
         self.name = botnetdata3.bots_info[self.num]['name'] #берем данные из файла
         self.bot_id = botnetdata3.bots_info[self.num]['bot_id']
         self.token = botnetdata3.bots_info[self.num]['token']
-        session = vk_api.VkApi(token=self.token) #авторизация
+        session = vk_api.VkApi(token=self.token, captcha_handler=anticaptcha) #авторизация
         longpoll = VkLongPoll(session)
         vk = session.get_api()
         print(Fore.CYAN + 'admbot connected!')
@@ -107,12 +111,6 @@ class bot:
                         код
                     elif st.startswith('start') and (event.user_id == botnetdata3.useradmin):
                         код
-
-def anticaptcha():
-    def captcha_handler(captcha):
-        key = ImageToTextTask.ImageToTextTask(anticaptcha_key='ключ антикапчи', save_format='const') \
-            .captcha_handler(captcha_link=captcha.get_url())
-        return captcha.try_again(key['solution']['text'])
 
 bots = []
 class MyThread(Thread): # объекты класса суем в список и запускаем поочередно
