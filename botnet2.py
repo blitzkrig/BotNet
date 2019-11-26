@@ -4,7 +4,6 @@ import time
 import random
 import vk_api
 import requests
-#from func import funcs
 from data import botnetdata3
 from threading import Thread
 from colorama import Fore, init, Style, Back
@@ -14,11 +13,12 @@ print('\nstart botnet\n')
 time.sleep(1)
 botx = 1
 class admbot: #admin bot
-    def captcha_handler(captcha):
+    
+    def __init__(self):
+        def captcha_handler(captcha):
         key = ImageToTextTask.ImageToTextTask(anticaptcha_key='ключ антикапчи', save_format='const') \
             .captcha_handler(captcha_link=captcha.get_url())
         return captcha.try_again(key['solution']['text'])
-    def __init__(self):
         self.num = botx
         time.sleep(botx)
         self.name = botnetdata3.bots_info[self.num]['name'] #берем данные из файла
